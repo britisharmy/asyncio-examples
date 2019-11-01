@@ -4,7 +4,10 @@ import json
 import sys
 import time
 
-
+async def fetch(session, url):
+    async with session.get(url) as response:
+        return response
+        
 async def get_statuses(websites):
     statuses = {}
     tasks = [get_website_status(website) for website in websites]
@@ -16,7 +19,9 @@ async def get_statuses(websites):
 
 
 async def get_website_status(url):
-    response = await aiohttp.get(url)
+ async with aiohttp.ClientSession() as session:
+    response = await fetch(session, url)
+    #response = await aiohttp.get(url)
     status = response.status
     response.close()
     return status
