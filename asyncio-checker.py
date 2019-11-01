@@ -19,6 +19,7 @@ async def get_statuses(websites):
 
 
 async def get_website_status(url):
+ #made a few changes here
  async with aiohttp.ClientSession() as session:
     response = await fetch(session, url)
     #response = await aiohttp.get(url)
